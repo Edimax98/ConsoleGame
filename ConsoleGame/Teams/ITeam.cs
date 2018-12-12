@@ -5,6 +5,6 @@ namespace ConsoleGame
     public interface ITeam
     {
         string Name { get; set; }
-        List<Hero> Heroes { get; set; }
+        List<IHero> Heroes { get; set; }
     }
 }

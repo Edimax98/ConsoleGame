@@ -8,8 +8,6 @@ namespace ConsoleGame
 {
     interface BattleEventsHandler
     {
-        void hostileNpcDead(HostileNPC hostileNpc);
-        void playableCharacterDead(Playable player);
-        void playableCharacterWasDefeatedBy(HostileNPC hostileNpc);
+        void HeroHasBeenKilled(IHero hero);
     }
 }

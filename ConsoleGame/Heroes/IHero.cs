@@ -13,6 +13,9 @@ namespace ConsoleGame
         int BaseDamage { get; }
         int Damage { get; }
 
+        string GetInfo();
+        void DamageTakenBy(IHero hero);
+        void Attack(IHero hero);
         int CalculateDamageBonus();
     }
 }

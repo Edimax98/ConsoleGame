@@ -9,6 +9,5 @@ namespace ConsoleGame
     interface Playable
     {
         void buy(Item item);
-        void attack(HostileNPC enemy);
     }
 }

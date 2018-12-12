@@ -50,5 +50,20 @@ namespace ConsoleGame
             damageBonus = random.Next(20, 50);
             return damageBonus;
         }
+
+        public void DamageTakenBy(IHero hero)
+        {
+            Health -= hero.Damage;   
+        }
+
+        public void Attack(IHero hero)
+        {
+            hero.DamageTakenBy(this);
+        }
+
+        public string GetInfo()
+        {
+            return $"{Name} ({Health}), base damge: {Damage}";
+        }
     }
 }

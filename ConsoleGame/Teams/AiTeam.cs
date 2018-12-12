@@ -6,33 +6,41 @@ namespace ConsoleGame
 {
     public class AiTeam : ITeam
     {
-        private readonly string[] names = {"Human destroyers", "the best", "Team that never loses"};
-        private List<Hero> heroes;
+        private readonly string[] names = { "Human destroyers", "the best", "Team that never loses" };
+        private string name;
+        private List<IHero> heroes;
 
-        public string Name 
+        public AiTeam()
         {
-            get 
+            name = GenerateRandomTeamName(names);
+        }
+
+        public string Name
+        {
+            get
             {
-                return GenerateRandomTeamName(names);
+                return name;
             }
             set
-            { 
+            {
+                name = value;
             }
         }
 
-        public List<Hero> Heroes
+        public List<IHero> Heroes
         {
-            get 
+            get
             {
                 return heroes;
             }
 
-            set 
+            set
             {
-                if (value.Count < 3) 
+                if (value.Count < 3)
                 {
                     //error
-                } else 
+                }
+                else
                 {
                     heroes = value;
                 }
@@ -47,5 +55,5 @@ namespace ConsoleGame
             string name = possibleNames[index];
             return name;
         }
-     }
+    }
 }

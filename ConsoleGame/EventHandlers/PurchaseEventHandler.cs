@@ -8,8 +8,5 @@ namespace ConsoleGame
 {
     interface PurchaseEventHandler
     {
-        void notEnoughMoneyFor(Item item);
-        void couldNotBuy(string message);
-        void itemWasBought();
     }
 }

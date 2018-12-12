@@ -3,6 +3,7 @@ namespace ConsoleGame
 {
     public class Elf : IHero
     {
+        BattleEventsHandler battleEventsHandler;
         public int Health 
         { 
             get 
@@ -33,6 +34,7 @@ namespace ConsoleGame
                 return 70;
             }
         }
+
         public int Damage 
         {
             get 
@@ -47,6 +49,21 @@ namespace ConsoleGame
             Random random = new Random();
             damageBonus = random.Next(20, 150);
             return damageBonus;
+        }
+
+        public void DamageTakenBy(IHero hero)
+        {
+            Health -= hero.Damage;
+        }
+
+        public void Attack(IHero hero)
+        {
+            hero.DamageTakenBy(this);
+        }
+
+        public string GetInfo()
+        {
+            return $"{Name} ({Health}), base damge: {Damage}";
         }
     }
 }

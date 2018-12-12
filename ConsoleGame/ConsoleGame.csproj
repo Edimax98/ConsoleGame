@@ -45,21 +45,22 @@
   <ItemGroup>
     <Compile Include="Items\Armor.cs" />
     <Compile Include="EventHandlers\BattleEventsHandler.cs" />
-    <Compile Include="NPCs\HostileNPC\HostileNPC.cs" />
-    <Compile Include="NPCs\FriendlyNPC\FriendlyNPC.cs" />
     <Compile Include="Scene\GameScene.cs" />
-    <Compile Include="Player\Hero.cs" />
     <Compile Include="Items\Item.cs" />
-    <Compile Include="NPCs\FriendlyNPC\Medic.cs" />
-    <Compile Include="NPCs\FriendlyNPC\Merchant.cs" />
     <Compile Include="NPCs\HostileNPC\Monster.cs" />
-    <Compile Include="NPCs\NPC.cs" />
     <Compile Include="Player\Playable.cs" />
     <Compile Include="Items\Potion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventHandlers\PurchaseEventHandler.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <Compile Include="Heroes\Elf.cs" />
+    <Compile Include="Heroes\IHero.cs" />
+    <Compile Include="Heroes\Knight.cs" />
+    <Compile Include="Heroes\Wizard.cs" />
+    <Compile Include="Teams\AiTeam.cs" />
+    <Compile Include="Teams\ITeam.cs" />
+    <Compile Include="Teams\PlayableTeam.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

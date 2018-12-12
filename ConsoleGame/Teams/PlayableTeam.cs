@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace ConsoleGame
 {
-    public class PlayableTeam : ITeam
+    public class PlayableTeam : ITeam, BattleEventsHandler
     {
         private string teamName;
-        private List<Hero> heroes;
+        private List<IHero> heroes;
 
         public string Name 
         {
@@ -20,22 +20,28 @@ namespace ConsoleGame
             }
         }
 
-        public List<Hero> Heroes 
+        public List<IHero> Heroes
         {
-            get 
+            get
             {
                 return heroes;
             }
-            set 
+            set
             {
-                if (value.Count < 3) 
+                if (value.Count < 3)
                 {
                     //error;
-                } else 
+                }
+                else
                 {
                     heroes = value;
                 }
             }
+        }
+
+        public void HeroHasBeenKilled(IHero hero)
+        {
+            heroes.Remove(hero);
         }
     }
 }

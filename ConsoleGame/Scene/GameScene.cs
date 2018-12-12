@@ -8,82 +8,122 @@ namespace ConsoleGame
 {
     class GameScene: BattleEventsHandler, PurchaseEventHandler
     {
-        private Hero player;
+        private PlayableTeam playersTeam = new PlayableTeam();
+        private AiTeam aiTeam = new AiTeam();
+
         private string[] actionButtonsInfo = { "W - attack monster", "A - buy a weapon", "D - buy an armor", "S - heal", "Q - Exit" };
         private HashSet<ConsoleKey> actionButtons = new HashSet<ConsoleKey> { ConsoleKey.W, ConsoleKey.A, ConsoleKey.S, ConsoleKey.D, ConsoleKey.Q };
         
-        private void createHero()
+        private void AddHeroesToTeams()
         {
-            this.player = new Hero(10, 100, 1, 100);
-            this.player.battleEventsHandler = this;
-            this.player.purchaseEventsHandler = this;
+            aiTeam.Heroes.Add(new Knight());
+            aiTeam.Heroes.Add(new Elf());
+            aiTeam.Heroes.Add(new Wizard());
+
+            playersTeam.Heroes.Add(new Knight());
+            playersTeam.Heroes.Add(new Elf());
+            playersTeam.Heroes.Add(new Wizard());
         }
 
-        private void showPreparedMenu()
-        {
-            printMenuWith(actionButtonsInfo);
-            handleSelectedAction(recivedInput());
+        private void InputPlayerTeamName()
+        {   
+           Console.Write("Input team name: ");
+           playersTeam.Name = Console.ReadLine();
         }
 
-        private void showHeroInfo(Hero hero)
+        private void ShowGeneratedAiTeamName()
         {
-            Console.Write($"Health = {hero.getHealth()} \n");
-            Console.Write($"Max health = {hero.getMaxHealth()} \n");
-            Console.Write($"Strength = {hero.getStrength()} \n");
-            Console.Write($"Coins = {hero.getCoinsAmount()} \n");
+            Console.Write($"Ai chose team name: {aiTeam.Name}");
         }
 
-        public void startGame()
+        private void PrintTeamHeroesInfo()
         {
-            createHero();
-            showPreparedMenu();
+            int i = 0;
+            Console.Write("------------------------------\n");
+            foreach(IHero hero in playersTeam.Heroes)
+            {
+                Console.Write($"{i}. {hero.GetInfo()}\n");
+            }
+            Console.Write("==============================\n");
         }
 
-        // Battle events handler methods
-        public void hostileNpcDead(HostileNPC hostileNpc)
+        private void PrintAiTeamInfo()
         {
-            Console.Write($"You have killed a {hostileNpc.GetType()} \n");
-            showPreparedMenu();
-        }
-
-        public void playableCharacterDead(Playable player)
-        {
-            Console.Write("You have been killed \n");
-            showHeroInfo(this.player);
-            Console.Write("NEW GAME. \n");
-            startGame();
-        }
-
-        public void playableCharacterWasDefeatedBy(HostileNPC hostileNpc)
-        {
-            Console.Write("Defeat. \n");
-            showHeroInfo(player);
+            Console.Write(aiTeam.Name);
             Console.Write("\n");
-            showPreparedMenu();
+            PrintTeamHeroesInfo();
         }
 
-        // Purchase events handler methods
-        public void notEnoughMoneyFor(Item item)
+        private void PrintPlayerTeamInfo() 
         {
-            Console.Write($"You don't have enough money. Price - {item.price} coin(s) \n");
+            Console.Write(playersTeam.Name);
             Console.Write("\n");
-            showPreparedMenu();
+            PrintTeamHeroesInfo();
         }
 
-        public void itemWasBought()
+        private IHero FindHeroBy(int index, ITeam team)
         {
-            Console.Write("Purchase successful! \n");
-            showHeroInfo(this.player);
+            int i = 0;
+            foreach (IHero hero in team.Heroes)
+            {
+                i++;
+                if (index == i)
+                {
+                    return hero;
+                }
+            }
+            return null;
+        }
+
+        private void PauseGame() 
+        {
+            ConsoleKeyInfo cki;
             Console.Write("\n");
-            showPreparedMenu();
+            Console.Write("------\n");
+            do
+            {
+                Console.Write("To continue press Enter...");
+                cki = Console.ReadKey();
+            } while (cki.Key != ConsoleKey.Enter);
         }
 
-        public void couldNotBuy(string message)
+        private void StartBattle()
         {
-            Console.Write($"Could not buy item. {message} \n");
-            showPreparedMenu();
+            Console.Write("Choose hero for attack: ");
+            IHero foundPlayerHero = FindHeroBy(InputHeroNumberToAttack(), playersTeam);
+            Console.Write("Choose enemy hero to attack: ");
+            IHero foundAiHero = FindHeroBy(InputHeroNumberToAttack(), aiTeam);
+            foundPlayerHero.Attack(foundAiHero);
         }
 
+        public void StartGame()
+        {
+            InputPlayerTeamName();
+            ShowGeneratedAiTeamName();
+            PauseGame();
+            AddHeroesToTeams();
+            PrintPlayerTeamInfo();
+            PrintAiTeamInfo();
+            StartBattle();
+        }
+
+        private int InputHeroNumberToAttack()
+        {
+            int number = 0;
+            try
+            {
+               number = System.Convert.ToInt32(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.Write("Wrong input"); 
+            }
+            catch (OverflowException)
+            {
+                Console.Write("Too big value"); 
+            }
+            return number;
+        }
 
         // Menu actions handling
         private ConsoleKey recivedInput()
@@ -105,22 +145,22 @@ namespace ConsoleGame
             {
                 case ConsoleKey.W:
                     {
-                        player.attack(new Monster());
+                        //player.attack(new Monster());
                         break;
-                    }
+                    } 
                 case ConsoleKey.S:
                     {
-                        player.buy(new Potion());
+                        //player.buy(new Potion());
                         break;
                     }
                 case ConsoleKey.A:
                     {
-                        player.buy(new Weapon());
+                        //player.buy(new Weapon());
                         break;
                     }
                 case ConsoleKey.D:
                     {
-                        player.buy(new Armor());
+                        //player.buy(new Armor());
                         break;
                     }
             }
@@ -132,6 +172,11 @@ namespace ConsoleGame
             {
                 Console.Write($"{item} \n");
             }
+        }
+
+        public void HeroHasBeenKilled(IHero hero)
+        {
+
         }
     }
 }
