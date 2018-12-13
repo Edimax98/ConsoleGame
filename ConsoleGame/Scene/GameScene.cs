@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace ConsoleGame
 {
-    class GameScene: BattleEventsHandler, PurchaseEventHandler
+    class GameScene: BattleEventsHandler
     {
         private PlayableTeam playersTeam = new PlayableTeam();
         private AiTeam aiTeam = new AiTeam();
-
-        private string[] actionButtonsInfo = { "W - attack monster", "A - buy a weapon", "D - buy an armor", "S - heal", "Q - Exit" };
-        private HashSet<ConsoleKey> actionButtons = new HashSet<ConsoleKey> { ConsoleKey.W, ConsoleKey.A, ConsoleKey.S, ConsoleKey.D, ConsoleKey.Q };
         
         private void AddHeroesToTeams()
         {
@@ -125,58 +122,24 @@ namespace ConsoleGame
             return number;
         }
 
-        // Menu actions handling
-        private ConsoleKey recivedInput()
+        string FindTeamNameFor(IHero hero)
         {
-            ConsoleKey key = new ConsoleKey();
-            do
+            if (aiTeam.Heroes.Contains(hero))
             {
-                var cki = Console.ReadKey(true);
-                key = cki.Key;
-                if (!actionButtons.Contains(key))
-                    Console.Write("Wrong button pressed. Try again.\n");
-            } while (!actionButtons.Contains(key));
-            return key;
-        }
-
-        private void handleSelectedAction(ConsoleKey key)
-        {
-            switch (key)
-            {
-                case ConsoleKey.W:
-                    {
-                        //player.attack(new Monster());
-                        break;
-                    } 
-                case ConsoleKey.S:
-                    {
-                        //player.buy(new Potion());
-                        break;
-                    }
-                case ConsoleKey.A:
-                    {
-                        //player.buy(new Weapon());
-                        break;
-                    }
-                case ConsoleKey.D:
-                    {
-                        //player.buy(new Armor());
-                        break;
-                    }
+                return $"({aiTeam.Name})";
             }
+            return $"({playersTeam.Name})";
         }
 
-        private void printMenuWith(string[] menuItems)
+        // Battle events handling
+        public void HeroHasBeenKilled(IHero victim, IHero killer)
         {
-            foreach(string item in menuItems)
-            {
-                Console.Write($"{item} \n");
-            }
+            Console.Write($"{killer.Name} killed {victim.Name}\n");
         }
 
-        public void HeroHasBeenKilled(IHero hero)
+        public void HeroHasBeenHurt(IHero victim, IHero attackingHero)
         {
-
+            Console.Write($"{attackingHero.Name} {FindTeamNameFor(attackingHero)} made {attackingHero.Damage} damage to {victim.Name} {FindTeamNameFor(victim)}\n");
         }
     }
 }

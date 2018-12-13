@@ -39,9 +39,14 @@ namespace ConsoleGame
             }
         }
 
-        public void HeroHasBeenKilled(IHero hero)
+        public void HeroHasBeenHurt(IHero victim, IHero attackingHero)
         {
-            heroes.Remove(hero);
+
+        }
+
+        public void HeroHasBeenKilled(IHero victim, IHero killer)
+        {
+            heroes.Remove(victim);
         }
     }
 }

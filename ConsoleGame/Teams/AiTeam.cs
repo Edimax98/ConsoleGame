@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 
 namespace ConsoleGame
 {
-    public class AiTeam : ITeam
+    public class AiTeam : ITeam, BattleEventsHandler
     {
         private readonly string[] names = { "Human destroyers", "the best", "Team that never loses" };
         private string name;
@@ -54,6 +54,16 @@ namespace ConsoleGame
             int index = random.Next(0, possibleNames.Length);
             string name = possibleNames[index];
             return name;
+        }
+
+        public void HeroHasBeenHurt(IHero victim, IHero attackingHero)
+        {
+           
+        }
+
+        public void HeroHasBeenKilled(IHero victim, IHero killer)
+        {
+            heroes.Remove(victim); 
         }
     }
 }

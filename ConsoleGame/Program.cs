@@ -8,19 +8,11 @@ namespace ConsoleGame
 {
     class Program
     {
-        List<int> l;
-        {
-            set 
-            {
-                
-            }
-        }
-
+ 
         static void Main(string[] args)
         {
-            //GameScene scene = new GameScene();
-            // scene.StartGame();
-            l.Add(1);
+            GameScene scene = new GameScene();
+             scene.StartGame();
         }
     }
 }

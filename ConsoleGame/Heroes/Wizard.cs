@@ -3,18 +3,24 @@ namespace ConsoleGame
 {
     public class Wizard: IHero
     {
-
-        public int Health 
+        BattleEventsHandler battleEventsHandler = null;
+        IHero attackingHero = null;
+        private int health = 500;
+        public int Health
         {
-            get 
+            get
             {
-                return 100;
+                return health;
             }
             set
             {
                 if (value <= 0)
                 {
-                    Console.Write($"{this.GetType()} is dead\n");
+                    battleEventsHandler.HeroHasBeenKilled(this, attackingHero);
+                }
+                else
+                {
+                    health = value;
                 }
             }
         }
@@ -46,6 +52,7 @@ namespace ConsoleGame
         public void Attack(IHero hero)
         {
             hero.DamageTakenBy(this);
+            attackingHero = hero;
         }
 
         public int CalculateDamageBonus()

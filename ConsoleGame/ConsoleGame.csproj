@@ -47,7 +47,6 @@
     <Compile Include="EventHandlers\BattleEventsHandler.cs" />
     <Compile Include="Scene\GameScene.cs" />
     <Compile Include="Items\Item.cs" />
-    <Compile Include="NPCs\HostileNPC\Monster.cs" />
     <Compile Include="Player\Playable.cs" />
     <Compile Include="Items\Potion.cs" />
     <Compile Include="Program.cs" />

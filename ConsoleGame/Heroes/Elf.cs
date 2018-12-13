@@ -3,18 +3,24 @@ namespace ConsoleGame
 {
     public class Elf : IHero
     {
-        BattleEventsHandler battleEventsHandler;
+        BattleEventsHandler battleEventsHandler = null;
+        private IHero attackingHero = null;
+        private int health = 500;
         public int Health 
         { 
             get 
             {
-                return 60;
+                return health;
             }
             set 
             {
                 if (value <= 0) 
                 {
-                    Console.Write($"{Name} is dead\n");
+                    battleEventsHandler.HeroHasBeenKilled(this, attackingHero);
+                }
+                else
+                {
+                    health = value;
                 }
             }
         }
@@ -54,6 +60,7 @@ namespace ConsoleGame
         public void DamageTakenBy(IHero hero)
         {
             Health -= hero.Damage;
+            attackingHero = hero;
         }
 
         public void Attack(IHero hero)
