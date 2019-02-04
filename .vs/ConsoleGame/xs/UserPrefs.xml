@@ -1,6 +1,13 @@
 ﻿<Properties StartupConfiguration="{8333121A-7B3E-4B23-AD75-5F53226AED83}|Default">
   <MonoDevelop.Ide.ItemProperties.ConsoleGame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConsoleGame/Scene/GameScene.cs">
+    <Files>
+      <File FileName="ConsoleGame/Heroes/Hero.cs" Line="49" Column="29" />
+      <File FileName="ConsoleGame/Scene/GameScene.cs" Line="65" Column="38" />
+      <File FileName="ConsoleGame/Player/Playable.cs" Line="11" Column="17" />
+      <File FileName="ConsoleGame/Teams/Team.cs" Line="12" Column="57" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

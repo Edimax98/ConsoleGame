@@ -6,20 +6,16 @@ using System.Threading.Tasks;
 
 namespace ConsoleGame
 {
-    class GameScene: BattleEventsHandler
+    class GameScene: BattleEventsHandler, ITeamEventHandler
     {
-        private PlayableTeam playersTeam = new PlayableTeam();
-        private AiTeam aiTeam = new AiTeam();
-        
-        private void AddHeroesToTeams()
-        {
-            aiTeam.Heroes.Add(new Knight());
-            aiTeam.Heroes.Add(new Elf());
-            aiTeam.Heroes.Add(new Wizard());
+        private PlayableTeam playersTeam = new PlayableTeam("fefe", new List<Hero>());
+        private AiTeam aiTeam = new AiTeam("fefe",new List<Hero>());
 
-            playersTeam.Heroes.Add(new Knight());
-            playersTeam.Heroes.Add(new Elf());
-            playersTeam.Heroes.Add(new Wizard());
+
+        private void AssembleTeams()
+        {
+            List<Hero> playerHeroes = new List<Hero> { new Elf("Mighty elf",1000,100, playersTeam), new Knight("Stupid knight",500,170, playersTeam) };
+            List<Hero> aiHeroes = new List<Hero> { new Elf("Green elf", 1000, 100, playersTeam), new Knight("Brave knight", 500, 170, playersTeam) };
         }
 
         private void InputPlayerTeamName()
@@ -37,7 +33,7 @@ namespace ConsoleGame
         {
             int i = 0;
             Console.Write("------------------------------\n");
-            foreach(IHero hero in playersTeam.Heroes)
+            foreach(Hero hero in playersTeam.Heroes)
             {
                 Console.Write($"{i}. {hero.GetInfo()}\n");
             }
@@ -58,20 +54,6 @@ namespace ConsoleGame
             PrintTeamHeroesInfo();
         }
 
-        private IHero FindHeroBy(int index, ITeam team)
-        {
-            int i = 0;
-            foreach (IHero hero in team.Heroes)
-            {
-                i++;
-                if (index == i)
-                {
-                    return hero;
-                }
-            }
-            return null;
-        }
-
         private void PauseGame() 
         {
             ConsoleKeyInfo cki;
@@ -87,10 +69,10 @@ namespace ConsoleGame
         private void StartBattle()
         {
             Console.Write("Choose hero for attack: ");
-            IHero foundPlayerHero = FindHeroBy(InputHeroNumberToAttack(), playersTeam);
+            //IHero foundPlayerHero = FindHeroBy(InputHeroNumberToAttack(), playersTeam);
             Console.Write("Choose enemy hero to attack: ");
-            IHero foundAiHero = FindHeroBy(InputHeroNumberToAttack(), aiTeam);
-            foundPlayerHero.Attack(foundAiHero);
+            //IHero foundAiHero = FindHeroBy(InputHeroNumberToAttack(), aiTeam);
+            //foundPlayerHero.Attack(foundAiHero);
         }
 
         public void StartGame()
@@ -98,7 +80,7 @@ namespace ConsoleGame
             InputPlayerTeamName();
             ShowGeneratedAiTeamName();
             PauseGame();
-            AddHeroesToTeams();
+            AssembleTeams();
             PrintPlayerTeamInfo();
             PrintAiTeamInfo();
             StartBattle();
@@ -122,7 +104,7 @@ namespace ConsoleGame
             return number;
         }
 
-        string FindTeamNameFor(IHero hero)
+        string FindTeamNameFor(Hero hero)
         {
             if (aiTeam.Heroes.Contains(hero))
             {
@@ -132,14 +114,20 @@ namespace ConsoleGame
         }
 
         // Battle events handling
-        public void HeroHasBeenKilled(IHero victim, IHero killer)
+        public void HeroHasBeenKilled(Hero victim, Hero killer)
         {
             Console.Write($"{killer.Name} killed {victim.Name}\n");
         }
 
-        public void HeroHasBeenHurt(IHero victim, IHero attackingHero)
+        public void HeroHasBeenHurt(Hero victim, Hero attackingHero)
         {
             Console.Write($"{attackingHero.Name} {FindTeamNameFor(attackingHero)} made {attackingHero.Damage} damage to {victim.Name} {FindTeamNameFor(victim)}\n");
+        }
+
+        // Team events handling
+        public void NotEnoughHeroesInTeam()
+        {
+            Console.Write("Team is too small");
         }
     }
 }

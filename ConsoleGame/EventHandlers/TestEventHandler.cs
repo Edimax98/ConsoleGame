@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConsoleGame
 {
-    interface PurchaseEventHandler
+    public interface ITeamEventHandler
     {
+        void NotEnoughHeroesInTeam();
     }
 }

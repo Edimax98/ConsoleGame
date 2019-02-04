@@ -8,7 +8,7 @@ namespace ConsoleGame
 {
     interface BattleEventsHandler
     {
-        void HeroHasBeenKilled(IHero victim, IHero killer);
-        void HeroHasBeenHurt(IHero victim, IHero attackingHero); 
+        void HeroHasBeenKilled(Hero victim, Hero killer);
+        void HeroHasBeenHurt(Hero victim, Hero attackingHero); 
     }
 }

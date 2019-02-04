@@ -3,50 +3,20 @@ using System.Collections.Generic;
 
 namespace ConsoleGame
 {
-    public class PlayableTeam : ITeam, BattleEventsHandler
+    public class PlayableTeam : Team, BattleEventsHandler
     {
-        private string teamName;
-        private List<IHero> heroes;
-
-        public string Name 
+        public PlayableTeam(string name, List<Hero> heroes): base(name,heroes)
         {
-            get 
-            {
-                return teamName;
-            }
-            set 
-            {
-                teamName = value;
-            }
         }
 
-        public List<IHero> Heroes
-        {
-            get
-            {
-                return heroes;
-            }
-            set
-            {
-                if (value.Count < 3)
-                {
-                    //error;
-                }
-                else
-                {
-                    heroes = value;
-                }
-            }
-        }
-
-        public void HeroHasBeenHurt(IHero victim, IHero attackingHero)
+        public void HeroHasBeenHurt(Hero victim, Hero attackingHero)
         {
 
         }
 
-        public void HeroHasBeenKilled(IHero victim, IHero killer)
+        public void HeroHasBeenKilled(Hero victim, Hero killer)
         {
-            heroes.Remove(victim);
+            Heroes.Remove(victim);
         }
     }
 }

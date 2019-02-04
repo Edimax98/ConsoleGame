@@ -4,47 +4,14 @@ using System.Diagnostics.Contracts;
 
 namespace ConsoleGame
 {
-    public class AiTeam : ITeam, BattleEventsHandler
+    public class AiTeam : Team, BattleEventsHandler
     {
         private readonly string[] names = { "Human destroyers", "the best", "Team that never loses" };
-        private string name;
-        private List<IHero> heroes;
-
-        public AiTeam()
+                
+        public AiTeam(string name, List<Hero> heroes): base(name,heroes)
         {
-            name = GenerateRandomTeamName(names);
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
-        }
-
-        public List<IHero> Heroes
-        {
-            get
-            {
-                return heroes;
-            }
-
-            set
-            {
-                if (value.Count < 3)
-                {
-                    //error
-                }
-                else
-                {
-                    heroes = value;
-                }
-            }
+            Name = GenerateRandomTeamName(names);
+            Heroes = heroes;
         }
 
         private static string GenerateRandomTeamName(string[] possibleNames)
@@ -56,14 +23,14 @@ namespace ConsoleGame
             return name;
         }
 
-        public void HeroHasBeenHurt(IHero victim, IHero attackingHero)
+        public void HeroHasBeenHurt(Hero victim, Hero attackingHero)
         {
            
         }
 
-        public void HeroHasBeenKilled(IHero victim, IHero killer)
+        public void HeroHasBeenKilled(Hero victim, Hero killer)
         {
-            heroes.Remove(victim); 
+            Heroes.Remove(victim); 
         }
     }
 }

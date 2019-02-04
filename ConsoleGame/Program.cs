@@ -8,11 +8,11 @@ namespace ConsoleGame
 {
     class Program
     {
- 
+
         static void Main(string[] args)
         {
-            GameScene scene = new GameScene();
-             scene.StartGame();
+            //GameScene scene = new GameScene();
+            //scene.StartGame();
         }
     }
 }
