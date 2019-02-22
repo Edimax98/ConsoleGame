@@ -57,6 +57,10 @@
     <Compile Include="Teams\Team.cs" />
     <Compile Include="Teams\PlayableTeam.cs" />
     <Compile Include="Exception\GameException.cs" />
+    <Compile Include="EventHandlers\IEventListener.cs" />
+    <Compile Include="EventHandlers\EventManager.cs" />
+    <Compile Include="IBattleObservable.cs" />
+    <Compile Include="TeamBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

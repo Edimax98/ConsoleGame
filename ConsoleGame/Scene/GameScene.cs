@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleGame
 {
-    class GameScene: BattleEventsHandler, ITeamEventHandler
+    class GameScene: IEventListener
     {
         private PlayableTeam playersTeam = new PlayableTeam("fefe", new List<Hero>());
         private AiTeam aiTeam = new AiTeam("fefe",new List<Hero>());
@@ -104,30 +104,14 @@ namespace ConsoleGame
             return number;
         }
 
-        string FindTeamNameFor(Hero hero)
+        public void HeroHasBeenKilled(Hero attacker, Hero victim)
         {
-            if (aiTeam.Heroes.Contains(hero))
-            {
-                return $"({aiTeam.Name})";
-            }
-            return $"({playersTeam.Name})";
+
         }
 
-        // Battle events handling
-        public void HeroHasBeenKilled(Hero victim, Hero killer)
+        public void HeroHasBeenHurt(Hero attacker, Hero victim)
         {
-            Console.Write($"{killer.Name} killed {victim.Name}\n");
-        }
 
-        public void HeroHasBeenHurt(Hero victim, Hero attackingHero)
-        {
-            Console.Write($"{attackingHero.Name} {FindTeamNameFor(attackingHero)} made {attackingHero.Damage} damage to {victim.Name} {FindTeamNameFor(victim)}\n");
-        }
-
-        // Team events handling
-        public void NotEnoughHeroesInTeam()
-        {
-            Console.Write("Team is too small");
         }
     }
 }

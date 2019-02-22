@@ -8,10 +8,8 @@ namespace ConsoleGame
 {
     public abstract class Hero
     {
-        private Hero attackingHero = null;
-        private Team team = null;
-
-        BattleEventsHandler battleEventsHandler = null;
+        private Team team;
+        public EventManager eventManager = new EventManager();
         public string Name { get; protected set; }
         public int BaseDamage { get; protected set; }
 
@@ -25,7 +23,6 @@ namespace ConsoleGame
             {
                 if (value <= 0)
                 {
-                    battleEventsHandler.HeroHasBeenKilled(this,attackingHero);
                 }
             }
         }
@@ -58,7 +55,6 @@ namespace ConsoleGame
         public void DamageTakenBy(Hero hero)
         {
             Health -= hero.Damage;
-            attackingHero = hero;
         }
 
         public void Attack(Hero hero)

@@ -1,5 +1,4 @@
-﻿using System;
-namespace ConsoleGame
+﻿namespace ConsoleGame
 {
     public class Wizard : Hero
     {

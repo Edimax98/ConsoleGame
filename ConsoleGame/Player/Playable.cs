@@ -8,6 +8,6 @@ namespace ConsoleGame
 {
     interface Playable
     {
-        void buy(Item item);
+       ///void buy(Item item);
     }
 }
